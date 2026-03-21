@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Networking\" />
+    <Folder Include="Text\" />
+    <Folder Include="Threading\" />
+    <Folder Include="Serialization\" />
+    <Folder Include="Memory\" />
+    <Folder Include="Time\" />
+    <Folder Include="Math\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Libs\ObjectIR.Core\ObjectIR.Core.csproj" />
+  </ItemGroup>
+
+</Project>

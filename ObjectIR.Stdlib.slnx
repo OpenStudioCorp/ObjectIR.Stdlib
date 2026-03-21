@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Libs/">
+    <Project Path="D:/git/ObjectIR.Stdlib/Libs/ObjectIR.Core/ObjectIR.Core.csproj" />
+  </Folder>
+  <Project Path="D:/git/ObjectIR.Stdlib/ObjectIR.StdLib.Core/ObjectIR.StdLib.Core.csproj" Id="833efec2-c0e8-4cbf-8a00-ec7db98482a4" />
+  <Project Path="D:/git/ObjectIR.Stdlib/ObjectIR.Stdlib/ObjectIR.Stdlib.csproj" />
+</Solution>
