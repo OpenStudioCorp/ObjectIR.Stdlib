@@ -11,9 +11,7 @@
     <Folder Include="Text\" />
     <Folder Include="Threading\" />
     <Folder Include="Serialization\" />
-    <Folder Include="Memory\" />
     <Folder Include="Time\" />
-    <Folder Include="Math\" />
   </ItemGroup>
 
   <ItemGroup>
