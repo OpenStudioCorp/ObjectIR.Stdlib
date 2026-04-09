@@ -21,6 +21,5 @@ namespace ObjectIR.Stdlib.Math
         /// <returns>A new Value<int> representing the sum of the current value and the specified value.</returns>
         public static abstract Value<int> Add(Value<int> B);
 
-        public static abstract Value<string>
     }
 }
