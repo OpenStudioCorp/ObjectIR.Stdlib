@@ -13,6 +13,9 @@ namespace ObjectIR.Stdlib.Memory
             throw new NotImplementedException();
         }
 
-  
+        public static Value<Type> Typeof(Type T)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

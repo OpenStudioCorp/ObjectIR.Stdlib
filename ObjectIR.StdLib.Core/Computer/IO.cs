@@ -11,11 +11,9 @@ namespace ObjectIR.Stdlib.Core.Computer
         public static ConsoleColor ForegroundColor { get; set; }
         public static ConsoleColor BackgroundColor { get; set; }
 
-        public static abstract void Print<T>(Value<T> data);
-        public static abstract void Println<T>(Value<T> data);
-
-        public static abstract void Print(Value<string> format, params Value<StdLib.Core.Core.AnyValue>[] data);
-        public static abstract void Println(Value<string> format, params Value<StdLib.Core.Core.AnyValue>[] data);
+      
+        public static abstract void Print(Value<Object> format, params Value<Object>[] data);
+        public static abstract void Println(Value<Object> format, params Value<Object>[] data);
 
         public static abstract Value<string> ReadLine();
 
