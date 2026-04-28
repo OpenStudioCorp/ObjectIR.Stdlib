@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ObjectIR.Core;
+using ObjectIR.Core.AST;
 namespace ObjectIR.StdLib.Core.Memory
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace ObjectIR.StdLib.Core.Memory
     /// implementing type.</remarks>
     public interface Reflection
     {
-        public static abstract Value<Type> GetType<T>();
-        public static abstract Value<Type> Typeof(Type T);
+        public static abstract Value<TypeRef> GetType();
+        public static abstract Value<TypeRef> Typeof(Statement T);
     }
 }
