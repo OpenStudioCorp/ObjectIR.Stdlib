@@ -2,14 +2,13 @@ using ObjectIR.Core;
 using ObjectIR.Core.AST;
 using ObjectIR.StdLib.Core.Generics;
 using ObjectIR.StdLib.Core.Memory;
-using ObjectIR.StdLib.Core.Threading;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ObjectIR.Stdlib.Threading
 {
-    public class Thread : IThread
+    public class Thread 
     {
         public static void Spawn(IDelagate entryPoint)
         {
@@ -33,7 +32,7 @@ namespace ObjectIR.Stdlib.Threading
 
         public static void Sleep(int milliseconds)
         {
-            System.Threading.Thread.Sleep(milliseconds);
+            global::System.Threading.Thread.Sleep(milliseconds);
         }
     }
 

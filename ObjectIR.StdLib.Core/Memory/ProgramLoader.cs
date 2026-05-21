@@ -1,3 +1,4 @@
+using ObjectIR.Core;
 using ObjectIR.Core.AST;
 using ObjectIR.StdLib.Core.Generics;
 using System;
@@ -63,11 +64,13 @@ namespace ObjectIR.StdLib.Core.Memory
 
             if (_hooks.TryGetValue(className, out var hookType))
             {
+                // Console.WriteLine($"[REGISTRY] Registering hook for {className}");
                 var provider = (INativeHook)Activator.CreateInstance(hookType)!;
                 program.Classes.Add(provider.GetClassNode());
                 return true;
             }
 
+            // Console.WriteLine($"[REGISTRY] Hook NOT found for {className}");
             return false;
         }
     }
@@ -95,9 +98,25 @@ namespace ObjectIR.StdLib.Core.Memory
         ClassNode? ResolveType(TypeRef typeRef);
 
         /// <summary>
+        /// Gets the 'this' pointer of the currently executing guest method.
+        /// Useful for native implementations of instance methods.
+        /// </summary>
+        object? GetCurrentThis();
+
+        /// <summary>
+        /// Executes an ObjectIR method from a native context.
+        /// </summary>
+        Value<object> ExecuteMethod(MethodReference method, object? thisObj, params object[] args);
+
+        /// <summary>
         /// Spawns a new thread of execution.
         /// </summary>
         void SpawnThread(IDelagate entryPoint);
+
+        /// <summary>
+        /// Suspends the current guest execution context for a specified duration.
+        /// </summary>
+        void Yield(int milliseconds);
     }
 
     /// <summary>
