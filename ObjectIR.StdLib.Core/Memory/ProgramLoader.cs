@@ -2,6 +2,7 @@ using ObjectIR.Core;
 using ObjectIR.Core.AST;
 using ObjectIR.StdLib.Core.Generics;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -35,7 +36,8 @@ namespace ObjectIR.StdLib.Core.Memory
     /// </summary>
     public static class NativeRegistry
     {
-        private static readonly Dictionary<string, Type> _hooks = new();
+        private static readonly ConcurrentDictionary<string, Type> _hooks = new();
+        private static readonly object _astLock = new();
 
         /// <summary>
         /// Scans an assembly for classes marked with [NativeHook] and registers them.
@@ -57,21 +59,23 @@ namespace ObjectIR.StdLib.Core.Memory
 
         /// <summary>
         /// Attempts to resolve a hook for the given class name and register it into the program AST.
+        /// Thread-safe: uses a lock to prevent duplicate registration when called concurrently.
         /// </summary>
         public static bool TryRegister(string className, ModuleNode program)
         {
-            if (program.Classes.Any(c => c.Name == className)) return true;
-
-            if (_hooks.TryGetValue(className, out var hookType))
+            lock (_astLock)
             {
-                // Console.WriteLine($"[REGISTRY] Registering hook for {className}");
-                var provider = (INativeHook)Activator.CreateInstance(hookType)!;
-                program.Classes.Add(provider.GetClassNode());
-                return true;
-            }
+                if (program.Classes.Any(c => c.Name == className)) return true;
 
-            // Console.WriteLine($"[REGISTRY] Hook NOT found for {className}");
-            return false;
+                if (_hooks.TryGetValue(className, out var hookType))
+                {
+                    var provider = (INativeHook)Activator.CreateInstance(hookType)!;
+                    program.Classes.Add(provider.GetClassNode());
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 
