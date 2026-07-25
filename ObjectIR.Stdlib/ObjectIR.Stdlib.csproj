@@ -4,10 +4,14 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libs\ObjectIR.Core\ObjectIR.Core.csproj" />
+	  <ProjectReference Include="..\Libs\ObjectIR.Core\ObjectIR.Core.csproj">
+		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		  <Private>true</Private>
+	  </ProjectReference>
     <ProjectReference Include="..\ObjectIR.StdLib.Core\ObjectIR.StdLib.Core.csproj" />
   </ItemGroup>
 

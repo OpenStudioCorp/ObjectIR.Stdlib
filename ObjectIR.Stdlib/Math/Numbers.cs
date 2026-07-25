@@ -8,5 +8,6 @@ namespace ObjectIR.Stdlib.Math
     public interface Numbers
     {
         public static Value<int> add(Value<int> a, Value<int> b ) => new Value<int>(a.Data + b.Data);
+        public (int result, int overflow) sub(int a, int b);
     }
 }

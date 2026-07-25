@@ -3,43 +3,33 @@ using ObjectIR.Stdlib.Core;
 using ObjectIR.StdLib.Core.Core;
 namespace ObjectIR.Stdlib.System
 {
-    public class IO<T> : Core.Computer.IO  where T : IEquatable<T>, IComparable<T>
+    public class IO : Core.Computer.IO
     {
-        public static TextReader Reader;
-        public static Stream Out { get; private set; }
-        public static Stream Error { get; private set; }
+        
+        public static TextWriter Out { get; private set; } = Console.Out;
+        public static TextWriter Error { get; private set; } = Console.Error;
+        public static TextReader In { get; private set; } = Console.In;
         public IO() { }
-        public static IO<T> Default { get; } = new IO<T>();
+  
 
-        public static void Print(Value<string> data)
+        public static void Print(Value<Object> data)
         {
-            Console.Write(data.Data);
+            Out.Write(data);
+        }
+        public static void Print(Value<Object> format, params Value<Object>[] data)
+        {
+            Out.Write(format.ToString(), data.Select(d => d.Data).ToArray());
         }
 
-        public static void Print<T1>(Value<T1> data)
+        public static void Println(Value<Object> format, params Value<Object>[] data)
         {
-            Console.Write(data.Data);
-        }
-
-        public static void Println<T1>(Value<T1> data)
-        {
-            Console.WriteLine(data.Data);
-        }
-
-        public static void Print(Value<string> format, params Value<AnyValue>[] data)
-        {
-            Console.Write(format.Data, data.Select(d => d.Data).ToArray());
-        }
-
-        public static void Println(Value<string> format, params Value<AnyValue>[] data)
-        {
-            Console.WriteLine(format.Data, data.Select(d => d.Data).ToArray());
+            Out.WriteLine(format.ToString(), data.Select(d => d.Data).ToArray());
         }
 
         public static Value<string> ReadLine()
         {
             Value<string> value;
-            using (var reader = Reader)
+            using (var reader = In)
             {
                 while (true)
                 {
@@ -58,12 +48,12 @@ namespace ObjectIR.Stdlib.System
 
         public static void SetBackgroundColor(ConsoleColor color)
         {
-            throw new NotImplementedException();
+            Console.BackgroundColor = color; 
         }
 
         public static void SetForegroundColor(ConsoleColor color)
         {
-            throw new NotImplementedException();
+            Console.ForegroundColor = color;
         }
     }
 }
